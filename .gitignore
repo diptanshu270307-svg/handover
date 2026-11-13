@@ -1,0 +1,19 @@
+# Environment & secrets
+.env
+.env.local
+
+# Python / FastAPI
+api/.venv/
+api/__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+api/storage/
+
+# Next.js / Node
+web/node_modules/
+web/.next/
+web/out/
+
+# OS
+.DS_Store

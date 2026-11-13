@@ -1,0 +1,63 @@
+{
+  "repo": "acme-student-team/payments-service",
+  "commit_sha": "c4d5e6f7a8b90123456789abcdef0123456789ab",
+  "files": [
+    {
+      "path": "README.md",
+      "permalink": "https://github.com/acme-student-team/payments-service/blob/c4d5e6f7a8b90123456789abcdef0123456789ab/README.md",
+      "updated_at": "2026-10-01T10:00:00Z",
+      "content": "# Payments Service\n\n## Payments Migration Status\nPayments Migration Status: COMPLETE. All checkout traffic is routed through Stripe v2 and legacy v1 endpoints are decommissioned.\n\n## Local Development\nRun `docker compose up` and `pytest`."
+    },
+    {
+      "path": "docs/runbook.md",
+      "permalink": "https://github.com/acme-student-team/payments-service/blob/c4d5e6f7a8b90123456789abcdef0123456789ab/docs/runbook.md",
+      "updated_at": "2026-10-20T14:30:00Z",
+      "content": "# Payments Service Runbook\n\n## Feature Flags\nFeature flags live in `infra/flags.yaml`.\n\n## Monitoring\nAlert `stripe_v2_retry_5xx` triggers when webhook retry failures exceed 2% over 5 minutes."
+    }
+  ],
+  "issues": [
+    {
+      "number": 139,
+      "title": "Idempotency key mismatch on Stripe v2 webhook retries",
+      "permalink": "https://github.com/acme-student-team/payments-service/issues/139",
+      "state": "open",
+      "created_at": "2026-10-27T09:15:00Z",
+      "updated_at": "2026-10-28T16:00:00Z",
+      "author": "maya-lin",
+      "body": "When checkout-api retries a timed-out Stripe v2 charge, it generates a fresh UUID instead of reusing the order's deterministic idempotency key. Migration paused at 35% traffic until fixed.",
+      "comments": [
+        {
+          "author": "jordan-patel",
+          "created_at": "2026-10-28T16:00:00Z",
+          "body": "Confirmed we are holding traffic at 35%. Maya is opening a PR for the key normalization."
+        }
+      ]
+    }
+  ],
+  "pull_requests": [
+    {
+      "number": 142,
+      "title": "WIP: Fix Stripe v2 idempotency key formatting",
+      "permalink": "https://github.com/acme-student-team/payments-service/pull/142",
+      "head_sha": "f9e8d7c6b5a4321098765432109876543210fedc",
+      "state": "open",
+      "draft": true,
+      "created_at": "2026-11-01T11:00:00Z",
+      "updated_at": "2026-11-02T18:20:00Z",
+      "author": "maya-lin",
+      "body": "Normalizes UUIDv4 idempotency keys before retry. Still failing webhook replay integration tests in tests/test_webhook_replay.py; DO NOT MERGE until DLQ replay is verified.",
+      "comments": [
+        {
+          "author": "maya-lin",
+          "created_at": "2026-11-02T18:20:00Z",
+          "body": "Blocked on TASK-88 (DLQ replay verification). Currently no owner assigned to TASK-88."
+        },
+        {
+          "author": "jordan-patel",
+          "created_at": "2026-11-03T09:05:00Z",
+          "body": "Let's make sure the successor picks up DLQ verification before merging #142."
+        }
+      ]
+    }
+  ]
+}

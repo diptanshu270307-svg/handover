@@ -1,0 +1,127 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "c1",
+      "source_id": "s1",
+      "source_title": "README.md",
+      "source_type": "github_file",
+      "source_date": "2026-10-01T10:00:00Z",
+      "version_sha": "a1b2c3d4",
+      "text": "Payments Migration Status: COMPLETE. All checkout traffic is routed through Stripe v2 and legacy v1 endpoints are decommissioned. Feature flag PAYMENTS_V2_ENABLED is enabled by default.",
+      "start_offset": 0,
+      "end_offset": 184
+    },
+    {
+      "chunk_id": "c2",
+      "source_id": "s2",
+      "source_title": "notes/2026-10-28-sync.md",
+      "source_type": "meeting_note",
+      "source_date": "2026-10-28T12:00:00Z",
+      "version_sha": null,
+      "text": "Payments migration is PAUSED at 35% traffic due to an idempotency key mismatch on retry. Rollback procedure: set PAYMENTS_V2_ENABLED=false in infra/flags.yaml, redeploy checkout-api, and drain the retry queue. Legacy v1 fallback remains active.",
+      "start_offset": 0,
+      "end_offset": 244
+    },
+    {
+      "chunk_id": "c3",
+      "source_id": "s3",
+      "source_title": "PR #142",
+      "source_type": "github_pr",
+      "source_date": "2026-11-02T18:20:00Z",
+      "version_sha": "f9e8d7c6",
+      "text": "WIP: Fix Stripe v2 idempotency key formatting. Still failing webhook replay integration tests in tests/test_webhook_replay.py; DO NOT MERGE until DLQ replay is verified. Blocked on TASK-88.",
+      "start_offset": 0,
+      "end_offset": 188
+    },
+    {
+      "chunk_id": "c4",
+      "source_id": "s4",
+      "source_title": "tasks/migration-tasks.csv",
+      "source_type": "task_export",
+      "source_date": "2026-11-03T09:00:00Z",
+      "version_sha": null,
+      "text": "TASK-88,Verify webhook dead-letter queue replay after idempotency fix,blocked,,No assignee set yet\nTASK-89,Rotate Stripe v2 webhook signing secret before 100% rollout,todo,Maya Lin,Pending rotation",
+      "start_offset": 0,
+      "end_offset": 197
+    },
+    {
+      "chunk_id": "c5",
+      "source_id": "s5",
+      "source_title": "docs/runbook.md",
+      "source_type": "github_file",
+      "source_date": "2026-10-20T14:30:00Z",
+      "version_sha": "c4d5e6f7",
+      "text": "Feature flags live in infra/flags.yaml. Alert stripe_v2_retry_5xx triggers when webhook retry failures exceed 2% over 5 minutes. Stripe v2 webhook signing secret rotation is scheduled before 100% rollout.",
+      "start_offset": 0,
+      "end_offset": 203
+    }
+  ],
+  "factual_claims": [
+    {"text": "README says migration is complete.", "chunk_id": "c1", "quote_span": "Payments Migration Status: COMPLETE.", "expected_valid": true},
+    {"text": "Legacy v1 endpoints marked decommissioned in README.", "chunk_id": "c1", "quote_span": "legacy v1 endpoints are decommissioned.", "expected_valid": true},
+    {"text": "PAYMENTS_V2_ENABLED is enabled by default in README.", "chunk_id": "c1", "quote_span": "Feature flag PAYMENTS_V2_ENABLED is enabled by default.", "expected_valid": true},
+    {"text": "Migration is paused at 35% traffic.", "chunk_id": "c2", "quote_span": "Payments migration is PAUSED at 35% traffic", "expected_valid": true},
+    {"text": "Pause is caused by idempotency key mismatch on retry.", "chunk_id": "c2", "quote_span": "due to an idempotency key mismatch on retry.", "expected_valid": true},
+    {"text": "Rollback requires setting PAYMENTS_V2_ENABLED=false.", "chunk_id": "c2", "quote_span": "set PAYMENTS_V2_ENABLED=false in infra/flags.yaml", "expected_valid": true},
+    {"text": "Rollback requires redeploying checkout-api.", "chunk_id": "c2", "quote_span": "redeploy checkout-api, and drain the retry queue.", "expected_valid": true},
+    {"text": "Legacy v1 fallback remains active.", "chunk_id": "c2", "quote_span": "Legacy v1 fallback remains active.", "expected_valid": true},
+    {"text": "PR #142 is a WIP idempotency formatting fix.", "chunk_id": "c3", "quote_span": "WIP: Fix Stripe v2 idempotency key formatting.", "expected_valid": true},
+    {"text": "PR #142 fails webhook replay integration tests.", "chunk_id": "c3", "quote_span": "Still failing webhook replay integration tests in tests/test_webhook_replay.py", "expected_valid": true},
+    {"text": "PR #142 must not be merged until DLQ replay is verified.", "chunk_id": "c3", "quote_span": "DO NOT MERGE until DLQ replay is verified.", "expected_valid": true},
+    {"text": "PR #142 is blocked on TASK-88.", "chunk_id": "c3", "quote_span": "Blocked on TASK-88.", "expected_valid": true},
+    {"text": "TASK-88 has no assignee.", "chunk_id": "c4", "quote_span": "TASK-88,Verify webhook dead-letter queue replay after idempotency fix,blocked,,No assignee set yet", "expected_valid": true},
+    {"text": "TASK-89 is assigned to Maya Lin.", "chunk_id": "c4", "quote_span": "TASK-89,Rotate Stripe v2 webhook signing secret before 100% rollout,todo,Maya Lin,Pending rotation", "expected_valid": true},
+    {"text": "Feature flags live in infra/flags.yaml.", "chunk_id": "c5", "quote_span": "Feature flags live in infra/flags.yaml.", "expected_valid": true},
+    {"text": "Alert stripe_v2_retry_5xx fires above 2% over 5 minutes.", "chunk_id": "c5", "quote_span": "Alert stripe_v2_retry_5xx triggers when webhook retry failures exceed 2% over 5 minutes.", "expected_valid": true},
+    {"text": "Fabricated: Kubernetes helm rollback is used.", "chunk_id": "c2", "quote_span": "run helm rollback checkout-api --revision 4", "expected_valid": false},
+    {"text": "Fabricated: Migration is at 90% traffic.", "chunk_id": "c2", "quote_span": "migration is at 90% traffic", "expected_valid": false},
+    {"text": "Fabricated: Non-existent chunk reference.", "chunk_id": "c999", "quote_span": "PAYMENTS_V2_ENABLED=false", "expected_valid": false},
+    {"text": "Fabricated: Secret already rotated.", "chunk_id": "c4", "quote_span": "secret rotation completed yesterday", "expected_valid": false}
+  ],
+  "conflict_cases": [
+    {
+      "name": "Migration complete vs paused",
+      "claim_a": "Payments Migration is COMPLETE.",
+      "claim_b": "Payments migration is PAUSED at 35% traffic."
+    },
+    {
+      "name": "Legacy v1 decommissioned vs active fallback",
+      "claim_a": "Payments Migration legacy v1 endpoints are decommissioned.",
+      "claim_b": "Payments Migration legacy v1 fallback remains active and migration is paused."
+    },
+    {
+      "name": "100% traffic vs PR #142 DO NOT MERGE",
+      "claim_a": "Stripe v2 migration completed at 100% traffic.",
+      "claim_b": "PR #142 is WIP and DO NOT MERGE until DLQ replay is verified."
+    },
+    {
+      "name": "Feature flag enabled vs blocked",
+      "claim_a": "Stripe v2 migration is finished and enabled.",
+      "claim_b": "Stripe v2 rollout is blocked and failing webhook replay tests."
+    },
+    {
+      "name": "Migration complete vs incomplete",
+      "claim_a": "Stripe v2 migration is completed.",
+      "claim_b": "Stripe v2 migration is incomplete and paused."
+    }
+  ],
+  "missing_cases": [
+    {"text": "Reason for Oct 15 to Nov 10 deployment delay is unknown.", "limitation_note": "No source explains deployment delay rationale."},
+    {"text": "Owner for TASK-88 DLQ replay verification is unassigned.", "limitation_note": "No owner listed in task export."},
+    {"text": "Rollback verification SLA is undocumented.", "limitation_note": "No SLA specified in runbook or notes."},
+    {"text": "Secondary PagerDuty escalation contact after Maya leaves is unknown.", "limitation_note": "Not present in repo or notes."},
+    {"text": "Stripe enterprise rate-card rationale is not available in permitted sources.", "limitation_note": "Restricted or absent from permitted corpus."}
+  ],
+  "access_cases": [
+    {"role": "reviewer", "user_id": "22222222-2222-2222-2222-222222222222", "allowed_roles": ["reviewer"], "allowed_user_ids": [], "expected": true},
+    {"role": "successor", "user_id": "33333333-3333-3333-3333-333333333333", "allowed_roles": ["reviewer"], "allowed_user_ids": [], "expected": false},
+    {"role": "outgoing", "user_id": "11111111-1111-1111-1111-111111111111", "allowed_roles": ["reviewer"], "allowed_user_ids": [], "expected": false},
+    {"role": "successor", "user_id": "33333333-3333-3333-3333-333333333333", "allowed_roles": ["outgoing", "reviewer", "successor"], "allowed_user_ids": [], "expected": true},
+    {"role": "successor", "user_id": "33333333-3333-3333-3333-333333333333", "allowed_roles": [], "allowed_user_ids": ["33333333-3333-3333-3333-333333333333"], "expected": true},
+    {"role": "successor", "user_id": "33333333-3333-3333-3333-333333333333", "allowed_roles": [], "allowed_user_ids": ["22222222-2222-2222-2222-222222222222"], "expected": false},
+    {"role": "reviewer", "user_id": "22222222-2222-2222-2222-222222222222", "allowed_roles": [], "allowed_user_ids": [], "expected": false},
+    {"role": "outgoing", "user_id": "11111111-1111-1111-1111-111111111111", "allowed_roles": ["outgoing", "reviewer"], "allowed_user_ids": [], "expected": true},
+    {"role": "successor", "user_id": "33333333-3333-3333-3333-333333333333", "allowed_roles": ["reviewer"], "allowed_user_ids": ["22222222-2222-2222-2222-222222222222"], "expected": false},
+    {"role": "reviewer", "user_id": "22222222-2222-2222-2222-222222222222", "allowed_roles": ["outgoing"], "allowed_user_ids": ["22222222-2222-2222-2222-222222222222"], "expected": true}
+  ]
+}
